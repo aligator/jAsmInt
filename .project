@@ -34,7 +34,7 @@
 		<link>
 			<name>core/core</name>
 			<type>2</type>
-			<location>/opt/eclipseArduino/arduinoPlugin/packages/arduino/hardware/avr/1.6.11/cores/arduino</location>
+			<location>/home/arch3/Arduino/hardware/teensy/avr/cores/teensy</location>
 		</link>
 		<link>
 			<name>core/variant</name>
