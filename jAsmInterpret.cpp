@@ -1,5 +1,6 @@
 #include "jAsmInterpret.h"
 
+#include "Command.h"
 
 void setup()
 {
@@ -8,7 +9,7 @@ void setup()
 
 void loop()
 {
-	uint64_t raw= eeprom->readNextCmd();
-	RawCommand rawCmd(&raw);
+	const uint64_t raw= eeprom->readNextCmd();
+	Interpreter interpreter(&raw);
 
 }

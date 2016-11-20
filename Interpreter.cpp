@@ -1,6 +1,7 @@
 #include "Interpreter.h"
 
-Interpreter::Interpreter(RawCommand *raw) {
+Interpreter::Interpreter(const uint64_t *raw) {
+	this->cmd = new Command(raw);
 
 }
 
