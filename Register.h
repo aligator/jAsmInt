@@ -26,6 +26,7 @@ private:
 	bool setWord(byte *reg1, byte *reg2, uint64_t data);
 	bool setDWord(byte *reg1, byte *reg2, byte *reg3, byte *reg4, uint64_t data);
 	bool setDWord(uint32_t *reg1, uint64_t data);
+	void printAll();
 };
 
 #endif /* REGISTER_H_ */

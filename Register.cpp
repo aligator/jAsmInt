@@ -23,7 +23,42 @@ Register::~Register() {
 
 }
 
+void Register::printAll() {
+	Serial.println("All registers:");
+	Serial.print("a: ");
+	Serial.println(a);
+	Serial.print("b: ");
+	Serial.println(b);
+	Serial.print("c: ");
+	Serial.println(c);
+	Serial.print("d: ");
+	Serial.println(d);
+	Serial.print("e: ");
+	Serial.println(e);
+	Serial.print("f: ");
+	Serial.println(f);
+	Serial.print("g: ");
+	Serial.println(g);
+	Serial.print("h: ");
+	Serial.println(h);
+	Serial.print("w1: ");
+	Serial.println((uint32_t)get(8));
+	Serial.print("w2: ");
+	Serial.println((uint32_t)get(9));
+	Serial.print("w3: ");
+	Serial.println((uint32_t)get(10));
+	Serial.print("w4: ");
+	Serial.println((uint32_t)get(11));
+	Serial.print("ax: ");
+	Serial.println((uint32_t)get(12));
+	Serial.print("bx: ");
+	Serial.println((uint32_t)get(13));
+	Serial.print("rx: ");
+	Serial.println((uint32_t)get(14));
+}
+
 uint64_t Register::get(int num) {
+
 	switch (num) {
 		case 0:
 			return a;
@@ -42,6 +77,7 @@ uint64_t Register::get(int num) {
 			break;
 		case 5:
 			return f;
+			break;
 		case 6:
 			return g;
 			break;
@@ -78,6 +114,7 @@ uint64_t Register::get(int num) {
 // returns: false if no error
 //          true if overflow
 bool Register::set(int num, uint64_t data) {
+
 	switch (num) {
 		case 0:
 			return setByte(&a, data);
@@ -96,6 +133,7 @@ bool Register::set(int num, uint64_t data) {
 			break;
 		case 5:
 			return setByte(&f, data);
+			break;
 		case 6:
 			return setByte(&g, data);
 			break;
@@ -145,7 +183,7 @@ bool Register::setWord(byte *reg1, byte *reg2, uint64_t data) {
 		ret = true;
 	}
 	setByte(reg1, (data >> 8));
-	setByte(reg2, (data));
+	setByte(reg2, ((byte)data));
 
 	return ret;
 }
@@ -175,9 +213,9 @@ bool Register::setDWord(uint32_t *reg1, uint64_t data) {
 }
 
 uint16_t Register::getWord(byte *b1, byte *b2) {
-	return (*b1 << 8) || *b2;
+	return (uint16_t(*b1) << 8) | *b2;
 }
 
 uint32_t Register::getDWord(byte *b1, byte *b2, byte *b3, byte *b4) {
-	return ((uint32_t)getWord(b1, b2) << 16) || getWord(b3, b4);
+	return ((uint32_t)getWord(b1, b2) << 16) | getWord(b3, b4);
 }

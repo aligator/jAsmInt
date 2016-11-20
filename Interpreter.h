@@ -10,10 +10,12 @@ public:
 	bool run(Register *reg);
 
 private:
+
 	Command *cmd;
 	void move(Register *reg);
 	void ipp(Register *reg);
 	void print(Register *reg);
+	uint32_t toUint32_t(uint32_t data, bool left);
 };
 
 #endif /* INTERPRETER_H_ */
