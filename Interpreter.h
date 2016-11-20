@@ -7,11 +7,13 @@ class Interpreter {
 public:
 	Interpreter(const uint64_t *raw);
 	virtual ~Interpreter();
-	bool run(const Register *reg);
+	bool run(Register *reg);
 
 private:
 	Command *cmd;
-	void move();
+	void move(Register *reg);
+	void ipp(Register *reg);
+	void print(Register *reg);
 };
 
 #endif /* INTERPRETER_H_ */

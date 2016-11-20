@@ -10,5 +10,6 @@ void loop();
 
 Eeprom *eeprom;
 Register *reg;
+bool isFinished;
 
 #endif /* _jAsmInterpret_H_ */

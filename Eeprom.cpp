@@ -23,7 +23,7 @@ uint64_t Eeprom::readNextCmd() {
 		if (Wire.available()) {
 
 			rdata = rdata << 8;
-			rdata = rdata || Wire.read();
+			rdata = rdata | Wire.read();
 		}
 
 		incPos(1);

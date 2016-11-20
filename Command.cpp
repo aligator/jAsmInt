@@ -1,9 +1,14 @@
 #include "Command.h"
 
 Command::Command(const uint64_t *raw) {
-	extractCmd((uint64_t)&raw);
-	extractInfo((uint64_t)&raw);
-	extractData((uint64_t)&raw);
+	extractCmd((uint64_t)*raw);
+	extractInfo((uint64_t)*raw);
+	extractData((uint64_t)*raw);
+
+	Serial.println("data");
+	Serial.println(getCmd());
+	Serial.println(getInfo());
+	Serial.println(getBigData());
 }
 
 Command::~Command() {
@@ -30,16 +35,16 @@ uint16_t Command::getData(bool left) {
 }
 
 void Command::extractCmd(uint64_t raw) {
-	raw = (raw >> 34) && 0x3F;
+	raw = (raw >> 34) & 0x3F;
 
 	// Undefinded behavior if tmp is not in scope of Cmds!!!
 	cmd = static_cast<Cmds>(raw);
 }
 
 void Command::extractInfo(uint64_t raw) {
-	info = raw >> 32 && 0x3;
+	info = raw >> 32 & 0x3;
 }
 
 void Command::extractData(uint64_t raw) {
-	data = raw && 0xFFFFFFFF;
+	data = raw & 0xFFFFFFFF;
 }
