@@ -10,10 +10,12 @@ public:
 	bool run(Register *reg);
 
 private:
+
 	Command *cmd;
 	void move(Register *reg);
 	void ipp(Register *reg);
 	void print(Register *reg);
+	uint32_t moveMiunsToMsb(uint32_t data);
 };
 
 #endif /* INTERPRETER_H_ */
