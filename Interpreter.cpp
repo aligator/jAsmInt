@@ -8,7 +8,7 @@ Interpreter::~Interpreter() {
 }
 
 // returns: true if program is finished
-bool Interpreter::run() {
+bool Interpreter::run(const Register *reg) {
 	switch (cmd->getCmd()) {
 		case Command::EXIT:
 			return true;
