@@ -4,6 +4,12 @@ Command::Command(const uint64_t *raw) {
 	extractCmd((uint64_t)*raw);
 	extractInfo((uint64_t)*raw);
 	extractData((uint64_t)*raw);
+/*
+	Serial.println("Next cmd:");
+	Serial.println(getCmd());
+	Serial.println(getInfo());
+	Serial.println(getBigData());
+	*/
 }
 
 Command::~Command() {

@@ -10,22 +10,26 @@ Eeprom::~Eeprom() {
 
 uint64_t Eeprom::readNextCmd() {
 	uint64_t rdata = 0;
+	if (!debug) {
+		for (int i = 0; i < 5; ++i) {
 
-	for (int i = 0; i < 5; ++i) {
+			Wire.beginTransmission(device);
+			Wire.write((int)(pos >> 8));   // MSB
+			Wire.write((int)(pos & 0xFF)); // LSB
+			Wire.endTransmission();
 
-		Wire.beginTransmission(device);
-		Wire.write((int)(pos >> 8));   // MSB
-		Wire.write((int)(pos & 0xFF)); // LSB
-		Wire.endTransmission();
+			Wire.requestFrom(device,1);
 
-		Wire.requestFrom(device,1);
+			if (Wire.available()) {
 
-		if (Wire.available()) {
+				rdata = rdata << 8;
+				rdata = rdata | Wire.read();
+			}
 
-			rdata = rdata << 8;
-			rdata = rdata | Wire.read();
+			incPos(1);
 		}
-
+	} else {
+		rdata = Eeprom::debugData[pos];
 		incPos(1);
 	}
 
@@ -33,8 +37,8 @@ uint64_t Eeprom::readNextCmd() {
 }
 
 void Eeprom::incPos(int count) {
-	pos += 5;
-	if (chekPos()) {
+	pos += count;
+	if (!chekPos()) {
 		pos = 32767;
 	}
 }

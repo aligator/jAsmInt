@@ -14,6 +14,15 @@ private:
 	void incPos(int count);
 	int device;
 	uint16_t pos;
+
+	bool debug = true;
+	uint64_t debugData[5] = {
+			0x0400010000,
+			0x0400020001,
+			0x0C00000001,
+			0x210000000E,
+			0x0000000000
+	};
 };
 
 #endif /* EEPROM_H_ */
