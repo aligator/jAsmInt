@@ -3,7 +3,7 @@
 Command::Command(const uint64_t *raw) {
 	extractCmd((uint64_t)*raw);
 	extractInfo((uint64_t)*raw);
-	extractData((uint64_t)*raw)
+	extractData((uint64_t)*raw);
 }
 
 Command::~Command() {
