@@ -54,13 +54,8 @@ void Interpreter::ipp(Register *reg) {
 			uint32_t s1, s2;
 			uint64_t res;
 
-			/*Serial.println("cmd1");
-			Serial.println(cmd->getData(true));
-			Serial.println("cmd2");
-			Serial.println(cmd->getData(false));
-*/
-			s1 = toUint32_t((uint32_t)reg->get((int)cmd->getData(true)));
-			s2 = toUint32_t((uint32_t)reg->get((int)cmd->getData(false)));
+			s1 = toUint32_t((uint32_t)reg->get((int)cmd->getData(true)), true);
+			s2 = toUint32_t((uint32_t)reg->get((int)cmd->getData(false)), false);
 
 			res = s1 + s2;
 
@@ -99,28 +94,25 @@ void Interpreter::print(Register *reg) {
 	}
 }
 
-uint32_t Interpreter::toUint32_t(uint32_t data) {
+uint32_t Interpreter::toUint32_t(uint32_t data, bool left) {
+	int regNr = cmd->getData(left);
+
 	byte msb = 0;
 	uint32_t mask = 0;
-	/*Serial.println("data");
-	Serial.println(data);
-*/
-	if (data <= 0xFF) {
+
+	if (regNr >= 0 && regNr <= 7) {
 		msb = data >> 7;
 		mask = 0xFFFFFF00;
-	} else if (data <= 0xFFFF) {
-		Serial.println("chk");
+	} else if (regNr >= 8 && regNr <= 11) {
 		msb = data >> 15;
 		mask = 0xFFFF0000;
-	} else if (data <= 0xFFFFFFFF) {
+	} else if (regNr >= 12 && regNr <= 14) {
 		return data;
 	}
-	if (msb) {
+	if (msb ) {
 		data |= mask;
 	}
-	/*
-	Serial.println("--");
-	Serial.println((int32_t)data);
-*/
+
+
 	return data;
 }

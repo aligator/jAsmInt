@@ -16,17 +16,17 @@ private:
 	uint16_t pos;
 
 	bool debug = true;
-	uint64_t debugData[13] = {
-			0x0400020009,
+	uint64_t debugData[5] = {
+			/*0x0400020009,
 			0x04FFFF0008,
 			0x0C00080009,
 			0x210000000E,
 
 			0x0400FF0000,
-			0x04FFFF0008,
-			0x0C00000008,
+			0x04FFFF0009,
+			0x0C00000009,
 			0x210000000E,
-
+*/
 			0x047FFF0009,
 			0x04FFFF0008,
 			0x0C00090008,
