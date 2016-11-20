@@ -11,5 +11,5 @@ void loop()
 {
 	const uint64_t raw= eeprom->readNextCmd();
 	Interpreter interpreter(&raw);
-
+	interpreter.run();
 }

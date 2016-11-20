@@ -3,11 +3,11 @@
 #include "Arduino.h"
 
 class Command {
+public:
 	enum Cmds {
-			EXIT, MOV, MOVDW, IPP, IMM, PRINT=8
+				EXIT, MOV, MOVDW, IPP, IMM, PRINT=8
 	};
 
-public:
 	Command(const uint64_t *raw);
 	virtual ~Command();
 	Cmds getCmd();
