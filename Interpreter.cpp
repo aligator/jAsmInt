@@ -54,18 +54,15 @@ void Interpreter::ipp(Register *reg) {
 			uint32_t s1, s2;
 			uint64_t res;
 
-			Serial.println("ipp: ");
-
-			s1 = moveMiunsToMsb((uint32_t)reg->get((int)cmd->getData(true)));
-			s2 = moveMiunsToMsb((uint32_t)reg->get((int)cmd->getData(false)));
-			Serial.println((int32_t)s1);
-			Serial.println((int32_t)s2);
+			/*Serial.println("cmd1");
+			Serial.println(cmd->getData(true));
+			Serial.println("cmd2");
+			Serial.println(cmd->getData(false));
+*/
+			s1 = toUint32_t((uint32_t)reg->get((int)cmd->getData(true)));
+			s2 = toUint32_t((uint32_t)reg->get((int)cmd->getData(false)));
 
 			res = s1 + s2;
-
-			Serial.println((uint32_t)(res >> 32));
-			Serial.println((uint32_t)res);
-
 
 			reg->set(14, (uint64_t)res);
 			break;
@@ -86,10 +83,10 @@ void Interpreter::ipp(Register *reg) {
 void Interpreter::print(Register *reg) {
 	switch (cmd->getInfo()) {
 		case 0:
-			Serial.println((uint32_t)cmd->getBigData());
+			Serial.println((int32_t)cmd->getBigData());
 			break;
 		case 1:
-			Serial.println((uint32_t)reg->get((int)cmd->getBigData()));
+			Serial.println((int32_t)reg->get((int)cmd->getBigData()));
 			break;
 		case 2:
 
@@ -102,19 +99,28 @@ void Interpreter::print(Register *reg) {
 	}
 }
 
-uint32_t Interpreter::moveMiunsToMsb(uint32_t data) {
+uint32_t Interpreter::toUint32_t(uint32_t data) {
 	byte msb = 0;
-
+	uint32_t mask = 0;
+	/*Serial.println("data");
+	Serial.println(data);
+*/
 	if (data <= 0xFF) {
 		msb = data >> 7;
-		data &= ~(1 << 8);
-		Serial.println(data);
+		mask = 0xFFFFFF00;
 	} else if (data <= 0xFFFF) {
+		Serial.println("chk");
 		msb = data >> 15;
-		data &= ~((uint32_t)1 << 16);
+		mask = 0xFFFF0000;
 	} else if (data <= 0xFFFFFFFF) {
 		return data;
 	}
-	data ^= (-msb ^ data) & ((uint64_t)1 << 32);
+	if (msb) {
+		data |= mask;
+	}
+	/*
+	Serial.println("--");
+	Serial.println((int32_t)data);
+*/
 	return data;
 }

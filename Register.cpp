@@ -24,6 +24,7 @@ Register::~Register() {
 }
 
 uint64_t Register::get(int num) {
+
 	switch (num) {
 		case 0:
 			return a;
@@ -96,6 +97,7 @@ bool Register::set(int num, uint64_t data) {
 			break;
 		case 5:
 			return setByte(&f, data);
+			break;
 		case 6:
 			return setByte(&g, data);
 			break;
@@ -145,7 +147,7 @@ bool Register::setWord(byte *reg1, byte *reg2, uint64_t data) {
 		ret = true;
 	}
 	setByte(reg1, (data >> 8));
-	setByte(reg2, (data));
+	setByte(reg2, ((byte)data));
 
 	return ret;
 }
@@ -175,9 +177,9 @@ bool Register::setDWord(uint32_t *reg1, uint64_t data) {
 }
 
 uint16_t Register::getWord(byte *b1, byte *b2) {
-	return (*b1 << 8) || *b2;
+	return (uint16_t(*b1) << 8) | *b2;
 }
 
 uint32_t Register::getDWord(byte *b1, byte *b2, byte *b3, byte *b4) {
-	return ((uint32_t)getWord(b1, b2) << 16) || getWord(b3, b4);
+	return ((uint32_t)getWord(b1, b2) << 16) | getWord(b3, b4);
 }
