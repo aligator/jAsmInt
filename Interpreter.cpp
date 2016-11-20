@@ -109,7 +109,7 @@ uint32_t Interpreter::toUint32_t(uint32_t data, bool left) {
 	} else if (regNr >= 12 && regNr <= 14) {
 		return data;
 	}
-	if (msb ) {
+	if (msb) {
 		data |= mask;
 	}
 
