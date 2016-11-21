@@ -5,16 +5,18 @@
 
 class Interpreter {
 public:
-	Interpreter(const uint64_t *raw);
+	Interpreter(const uint64_t *const raw, Register *const reg);
 	virtual ~Interpreter();
-	bool run(Register *reg);
+	bool run();
 
 private:
-
 	Command *cmd;
-	void move(Register *reg);
-	void ipp(Register *reg);
-	void print(Register *reg);
+	Register *reg;
+
+	void move();
+	void moveDw();
+	void ipp(bool minus);
+	void print();
 	uint32_t toUint32_t(uint32_t data, bool left);
 };
 

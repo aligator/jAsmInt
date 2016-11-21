@@ -8,6 +8,7 @@ void setup()
 	Serial.begin(9600);
 	eeprom = new Eeprom(0xFF);
 	reg = new Register();
+	ram = new Ram();
 	isFinished = false;
 
 	Serial.println("----------------");
@@ -18,7 +19,7 @@ void loop()
 	const uint64_t raw= eeprom->readNextCmd();
 
 	if (!isFinished) {
-		Interpreter interpreter(&raw);
-		isFinished = interpreter.run(reg);
+		Interpreter interpreter(&raw, reg);
+		isFinished = interpreter.run();
 	}
 }
