@@ -19,7 +19,7 @@ void loop()
 	const uint64_t raw= eeprom->readNextCmd();
 
 	if (!isFinished) {
-		Interpreter interpreter(&raw, reg);
+		Interpreter interpreter(&raw, reg, ram);
 		isFinished = interpreter.run();
 	}
 }

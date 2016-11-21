@@ -1,8 +1,9 @@
 #include "Interpreter.h"
 
-Interpreter::Interpreter(const uint64_t *const raw, Register *const reg) {
+Interpreter::Interpreter(const uint64_t *const raw, Register *const reg, Ram *const ram) {
 	this->cmd = new Command(raw);
 	this->reg = reg;
+	this->ram = ram;
 }
 
 Interpreter::~Interpreter() {
