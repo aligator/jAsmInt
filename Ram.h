@@ -1,4 +1,4 @@
-#define RAMSIZE 512
+#define VRAMSIZE 512
 
 #ifndef RAM_H_
 #define RAM_H_
@@ -12,8 +12,8 @@ public:
 	bool writeWord(uint32_t address, uint16_t data);
 	bool writeDWord(uint32_t address, uint32_t data);
 private:
-	byte ram[RAMSIZE] = {0};
-	bool checkAddress(uint32_t);
+	byte ram[VRAMSIZE] = {0};
+	bool checkAddress(uint32_t address);
 };
 
 #endif /* RAM_H_ */
