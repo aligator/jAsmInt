@@ -11,6 +11,10 @@ public:
 	bool writeByte(uint32_t address, byte data);
 	bool writeWord(uint32_t address, uint16_t data);
 	bool writeDWord(uint32_t address, uint32_t data);
+	byte readByte(uint32_t address);
+	uint16_t readWord(uint32_t address);
+	uint32_t readDWord(uint32_t address);
+
 private:
 	byte ram[VRAMSIZE] = {0};
 	bool checkAddress(uint32_t address);
